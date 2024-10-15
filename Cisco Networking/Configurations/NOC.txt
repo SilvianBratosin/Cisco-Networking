@@ -1,0 +1,182 @@
+hostname Router
+!
+!
+!
+!
+!
+!
+!
+!
+no ip cef
+no ipv6 cef
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface FastEthernet1/0
+ no ip address
+ duplex auto
+ speed auto
+!
+interface Serial2/0
+ no ip address
+ clock rate 2000000
+!
+interface Serial3/0
+ no ip address
+ clock rate 2000000
+!
+interface FastEthernet4/0
+ no ip address
+ ip nat inside
+!
+interface FastEthernet4/0.11
+ encapsulation dot1Q 11
+ ip address 10.57.149.1 255.255.255.192
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.12
+ encapsulation dot1Q 12
+ ip address 10.57.149.65 255.255.255.192
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.13
+ encapsulation dot1Q 13
+ ip address 10.57.149.193 255.255.255.192
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.22
+ encapsulation dot1Q 22
+ ip address 10.57.150.1 255.255.255.192
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.23
+ encapsulation dot1Q 23
+ ip address 10.57.150.65 255.255.255.192
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.31
+ encapsulation dot1Q 31
+ ip address 10.57.150.129 255.255.255.192
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.32
+ encapsulation dot1Q 32
+ ip address 10.57.151.161 255.255.255.224
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.33
+ encapsulation dot1Q 33
+ ip address 10.57.150.193 255.255.255.192
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.41
+ encapsulation dot1Q 41
+ ip address 10.57.151.1 255.255.255.192
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.42
+ encapsulation dot1Q 42
+ ip address 10.57.151.193 255.255.255.224
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.51
+ encapsulation dot1Q 51
+ ip address 10.57.151.225 255.255.255.224
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.52
+ encapsulation dot1Q 52
+ ip address 10.57.151.65 255.255.255.192
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.101
+ encapsulation dot1Q 101
+ ip address 10.57.146.1 255.255.255.0
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.102
+ encapsulation dot1Q 102
+ ip address 10.57.144.1 255.255.254.0
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet4/0.103
+ encapsulation dot1Q 103
+ ip address 10.57.147.1 255.255.255.0
+ ip helper-address 10.57.151.133
+ ip nat inside
+!
+interface FastEthernet5/0
+ ip address 10.57.151.129 255.255.255.224
+ ip nat inside
+!
+interface FastEthernet6/0
+ ip address 151.126.128.33 255.255.255.224
+ ip nat outside
+!
+router rip
+ network 10.0.0.0
+ network 151.0.0.0
+!
+ip nat inside source list 10 interface FastEthernet6/0 overload
+ip nat inside source static 10.57.151.130 151.126.168.35 
+ip nat inside source static 10.57.151.131 151.126.168.36 
+ip nat inside source static 10.57.151.132 151.126.168.37 
+ip nat inside source static 10.57.151.133 151.126.168.38 
+ip nat inside source static 10.57.151.134 151.126.168.39 
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 10 permit 10.57.144.0 0.0.7.255
+ip access-list standard nocnat
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
